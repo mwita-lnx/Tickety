@@ -1,0 +1,367 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+
+  <script src="{% static 'js/vendor/jquery-2.2.4.min.js' %}"></script>
+
+  <script src="{% static 'js/jquery-ui.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'css/linearicons.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" />
+  <script src="{% static 'js/jquery.ajaxchimp.min.js' %}">
+  </script>
+
+  <title>Document</title>
+</head>
+
+<body>
+
+  <section class="search-nav">
+    <div class="m-4">
+      <nav class="navbar navbar-expand-lg " style="background: rgba(4, 9, 30, 0.4);">
+        <div class="container-fluid">
+          <div>          <a href="#" class="navbar-brand">Tickety</a>          <a href="/" class="navbar-brand">Home</a></div>
+          <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse2">
+            <i class="lnr lnr-menu"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarCollapse2">
+            <div class="navbar-nav">
+              <a href="/" class="nav-item  active">Home</a>
+              <a href="/user/profile" class="nav-item ">My profile</a>
+              <a href="/events/create" class="nav-item ">Create events</a>
+              <a href="/contact" class="nav-item ">Contact</a>
+            </div>
+            <form class="form-inline my-2 my-lg-0" method="GET">
+              <input type="text" name="title" placeholder="search event" id="id_title" class="form-control" style="margin-left:10px;">
+              <button class="btn btn-outline-success my-2 my-sm-0" style="margin-left: 5px;"
+                type="submit">Search</button>
+            </form>
+            <button type="button" id="click" class="btn btn-outline-light" style="margin:5px;">
+              Detail Search
+            </button>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+
+    <div class="booking-form" id="search-panel">
+      <form method="GET">
+        <div class="form-group" style="padding-top: 20px" class="row">
+          <u>
+            <h3>Quick search</h3>
+          </u>
+
+          <div class="form-group row">
+            <div class="col-sm-6"> <label for="">{{myFilter.form.title.label}}</label>
+              {{myFilter.form.title}}</div>
+            <div class="col-sm-6"><label for="">{{myFilter.form.start_date.label}}</label>
+              {{myFilter.form.start_date}}</div>
+            <div class="col-sm-6"><label for="">{{myFilter.form.end_date.label}}</label>
+              {{myFilter.form.end_date}}</div>
+            <div class="col-sm-6"> <label for="">{{myFilter.form.location.label}}</label>
+              {{myFilter.form.location}}</div>
+            <div class="col-sm-6"> <label for="">{{myFilter.form.about.label}}</label>
+              {{myFilter.form.about}}</div>
+              
+          </div>
+          <div class="form-btn">
+            <button class="submit-btn" type="">Check availability</button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </section>
+
+  <script>
+    $("input[type=text]").addClass("form-control ");
+    $("label").addClass("form-label");
+    $("#id_start_date").get(0).type = "date";
+    $("#id_end_date").get(0).type = "date";
+
+    $("#click").click(function () {
+      $("#search-panel").toggle();
+    });
+  </script>
+  <section class="popular-destination-area section-gap">
+    <div>
+      <div class="row d-flex justify-content-center">
+        <div class="menu-content pb-30 col-lg-8">
+
+        </div>
+      </div>
+      <div class="row">
+        {% for event in events %} {% if event.thumbnail %}
+        <div class="col-lg-4 cardb" id="{{event.id}}" style="background-image:url({{event.thumbnail.url}}) ">
+
+          {% else%}
+          <div class="col-lg-4 cardb" id="{{event.id}}" style="background-image:url('/static/img/eventdefault.jpg') ">
+            {% endif %}
+            <div class="single-destination relative">
+              <div class="thumb relative">
+                <div class="overlay overlay-bg"></div>
+              </div>
+
+              <div class="desc">
+                <a href="/events/{{event.id}}" class="price-btn">Go to event</a>
+                <h4>{{event.title}}</h4>
+                <p>{{event.location}}</p>
+              </div>
+            </div>
+          </div>
+
+          {% endfor %}
+        </div>
+      </div>
+  </section>
+  </div>
+  </div>
+  </section>
+
+  <style>
+    .single-destination {
+      -webkit-transition: all 0.3s ease 0s;
+      -moz-transition: all 0.3s ease 0s;
+      -o-transition: all 0.3s ease 0s;
+      transition: all 0.3s ease 0s;
+    }
+
+    .single-destination .overlay-bg {
+      background: rgba(4, 9, 30, 0.4);
+      -webkit-transition: all 0.3s ease 0s;
+      -moz-transition: all 0.3s ease 0s;
+      -o-transition: all 0.3s ease 0s;
+      transition: all 0.3s ease 0s;
+      opacity: 0;
+    }
+
+    .single-destination .thumb {
+      position: relative;
+    }
+
+    .single-destination .thumb img {
+      width: 100%;
+    }
+
+    .single-destination .desc {
+      text-align: center;
+      position: absolute;
+      width: 100%;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .single-destination .desc .price-btn {
+      background: #f8b600;
+      text-align: center;
+      color: #222;
+      padding: 6px 30px;
+      font-size: 14px;
+      font-weight: 600;
+      display: inline-block;
+      margin: 10px;
+      opacity: 0;
+      -webkit-transition: all 0.3s ease 0s;
+      -moz-transition: all 0.3s ease 0s;
+      -o-transition: all 0.3s ease 0s;
+      transition: all 0.3s ease 0s;
+    }
+
+    .single-destination .desc h4 {
+      color: #fff;
+    }
+
+    .single-destination .desc p {
+      color: #fff;
+      font-size: 14px;
+      font-weight: 300;
+      margin-bottom: 0px;
+    }
+
+    .single-destination:hover .price-btn {
+      opacity: 1;
+    }
+
+    .single-destination:hover .overlay-bg {
+      opacity: 1;
+    }
+
+    .container {
+      width: 100%;
+    }
+
+    .cardb {
+      height: 450px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      margin: 5px;
+    }
+
+    @media (min-width: 992px) {
+      .col-lg-4 {
+        max-width: 32.33333%;
+        position: relative;
+        top: 30px;
+      }
+    }
+
+    .row {
+      margin-right: 0;
+    }
+
+    .booking-form {
+      background-color: #fff;
+      padding: 0 20px 10px 10px;
+      -webkit-box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.3);
+      box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.3);
+      border-radius: 4px;
+    }
+
+    #search-panel {
+      display: none;
+    }
+
+    .booking-form .form-group {
+      position: relative;
+    }
+
+    .booking-form .form-control {
+      background-color: #ebecee;
+      border-radius: 4px;
+      border: none;
+      height: 40px;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+      color: #3e485c;
+      font-size: 14px;
+    }
+
+    .booking-form .form-control::-webkit-input-placeholder {
+      color: rgba(62, 72, 92, 0.3);
+    }
+
+    .booking-form .form-control:-ms-input-placeholder {
+      color: rgba(62, 72, 92, 0.3);
+    }
+
+    .booking-form .form-control::placeholder {
+      color: rgba(62, 72, 92, 0.3);
+    }
+
+    .booking-form input[type="date"].form-control:invalid {
+      color: rgba(62, 72, 92, 0.3);
+    }
+
+    .booking-form select.form-control {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+
+    .booking-form select.form-control+.select-arrow {
+      position: absolute;
+      right: 0px;
+      bottom: 4px;
+      width: 32px;
+      line-height: 32px;
+      height: 32px;
+      text-align: center;
+      pointer-events: none;
+      color: rgba(62, 72, 92, 0.3);
+      font-size: 14px;
+    }
+
+    .booking-form select.form-control+.select-arrow:after {
+      content: "\279C";
+      display: block;
+      -webkit-transform: rotate(90deg);
+      transform: rotate(90deg);
+    }
+
+    .booking-form .form-label {
+      display: inline-block;
+      color: #3e485c;
+      font-weight: 700;
+      margin-bottom: 6px;
+      margin-left: 7px;
+    }
+
+    .booking-form .submit-btn {
+      display: inline-block;
+      color: #fff;
+      background-color: #1e62d8;
+      font-weight: 700;
+      padding: 14px 30px;
+      border-radius: 4px;
+      border: none;
+      -webkit-transition: 0.2s all;
+      transition: 0.2s all;
+    }
+
+    .booking-form .submit-btn:hover,
+    .booking-form .submit-btn:focus {
+      opacity: 0.9;
+    }
+
+    .booking-cta {
+      margin-top: 80px;
+      margin-bottom: 30px;
+    }
+
+    .booking-cta h1 {
+      font-size: 52px;
+      text-transform: uppercase;
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .booking-cta p {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .search-nav {
+      background: url("{% static 'img/hero-bg.jpg' %}");
+
+    }
+
+    .nav-item {
+      padding: 5px;
+      color: #fff;
+    }
+
+    .lnr-menu {
+      color: #fff;
+    }
+  </style>
+
+  <script src="{% static 'js/vendor/jquery-2.2.4.min.js' %}"></script>
+  <script src="{% static 'js/popper.min.js' %}"></script>
+  <script src="{% static 'js/vendor/bootstrap.min.js' %}"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+  <script src="{% static 'js/jquery-ui.js' %}"></script>
+  <script src="{% static 'js/easing.min.js' %}"></script>
+  <script src="{% static 'js/hoverIntent.js' %}"></script>
+  <script src="{% static 'js/superfish.min.js' %}"></script>
+  <script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
+  <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+  <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+  <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'js/mail-script.js' %}"></script>
+
+</body>
+
+</html>

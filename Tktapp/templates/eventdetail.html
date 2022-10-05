@@ -1,0 +1,252 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+  <head>
+    <!-- Mobile Specific Meta -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="img/fav.png" />
+    <!-- Author Meta -->
+    <meta name="author" content="colorlib" />
+    <!-- Meta Description -->
+    <meta name="description" content="" />
+    <!-- Meta Keyword -->
+    <meta name="keywords" content="" />
+    <!-- meta character set -->
+    <meta charset="UTF-8" />
+    <!-- Site Title -->
+    <title>Travel</title>
+
+    <!-- <link
+      href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700"
+      rel="stylesheet"
+    /> -->
+    <!--
+			CSS
+			============================================= -->
+    <link rel="stylesheet" href="{% static 'css/linearicons.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/nice-select.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/animate.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/eventdetail.css' %}" />
+  </head>
+  <body>
+    <header id="header">
+      <div class="header-top">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-lg-6 col-sm-6 col-6 header-top-left">
+              <ul>
+                <li><a href="#">Visit Us</a></li>
+                <li><a href="#">Buy Tickets</a></li>
+              </ul>
+            </div>
+            <div class="col-lg-6 col-sm-6 col-6 header-top-right">
+              <div class="header-social">
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-dribbble"></i></a>
+                <a href="#"><i class="fa fa-behance"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container main-menu">
+        <div class="row align-items-center justify-content-between d-flex men">
+          <div id="logo">
+            <a href="index.html"><img src="img/logo.png" alt="" title="" /></a>
+          </div>
+          <nav id="nav-menu-container">
+            <ul class="nav-menu">
+              <li><a href="/">Home</a></li>
+              <li><a href="events/">Events</a></li>
+              <li><a href="packages.html">Packages</a></li>
+              <li><a href="hotels.html">Hotels</a></li>
+              <li><a href="insurance.html">Insurence</a></li>
+            </ul>
+          </nav>
+          <!-- #nav-menu-container -->
+        </div>
+      </div>
+    </header>
+    <!-- #header -->
+
+    <!-- start banner Area -->
+    <section class="about-banner relative">
+      <div class="overlay overlay-bg"></div>
+      <div class="container">
+        <div class="row d-flex align-items-center justify-content-center">
+          <div class="about-content col-lg-12">
+            <h1 class="text-white">{{object}}</h1>
+            <p class="text-white link-nav">
+              <a href="index.html">Home </a>
+              <span class="lnr lnr-arrow-right"></span>
+              <a href="insurance.html"> Insurance</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End banner Area -->
+
+    <!-- Start insurence-one Area -->
+    <section
+      class="insurence-one-area section-gap"
+      style="padding-top: 50px; padding-bottom: 50px"
+    >
+      <div class="container img-container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 insurence-left" style="padding: 0">
+            {% if object.thumbnail %}
+            <img
+              class="img-fluid img-one"
+              src="{{object.thumbnail.url}}"
+              alt=""
+            />
+            {% else%}
+            <img
+            class="img-fluid img-one"
+            src="/static/img/eventdefault.jpg"
+            alt=""
+          />
+          {% endif %}
+          </div>
+          <div class="col-lg-6 insurence-right">
+            <h1>Event name : {{object}}</h1>
+            <p style="font-size: 20px">About Event: {{object.about}}</p>
+            <div class="list-wrap">
+              <ul>
+                <li>location: {{object.location}}</li>
+                <li><a href="{{object.pin_location}}">location link</a></li>
+                <li>Date : {{object.start_date}} to {{object.end_date}}</li>
+                <li>Modern and evergreen logo for your business.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-fluid">
+        <div class="container">
+          <div class="row">
+            {% if categories %}
+            {% for cat in categories %}
+            <div class="col-sm-4">
+              <div class="card text-center">
+                <div class="title">
+                  <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                  <h2>{{cat.category_name}}</h2>
+                </div>
+                <div class="price">
+                  <h4><sup>Ksh</sup>{{cat.value}}</h4>
+                </div>
+                <div class="option"></div>
+                <a
+                  href="#"
+                  data-name="{{cat.category_name}}"
+                  data-price="{{cat.value}}"
+                  class="add-to-cart btn btn-primary"
+                  >Add to cart</a
+                >
+              </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="col-sm-4">
+              <div class="card text-center">
+                <div class="title">
+                  <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                  <h2>{{object}}</h2>
+                </div>
+                <div class="price">
+                  <h4><sup>Ksh</sup>{{object.value}}</h4>
+                </div>
+                <div class="option"></div>
+                <a
+                  href="#"
+                  data-name="{{object}}"
+                  data-price="{{object.value}}"
+                  class="add-to-cart btn btn-primary"
+                  >Add to cart</a
+                >
+              </div>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="checkout">
+      <form action="" method="POST">
+        {% csrf_token %}
+        <div
+          class="modal fade"
+          id="cart"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cart</h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <table class="show-cart table"></table>
+                <div><h3>Total price: ksh :<span class="total-cart"></span></h3></div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="button" class="btn btn-primary place-order">
+                  place-order
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <script src="{% static 'js/vendor/jquery-2.2.4.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/vendor/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.js' %}"></script>
+    <script src="{% static 'js/easing.min.js' %}"></script>
+    <script src="{% static 'js/hoverIntent.js' %}"></script>
+    <script src="{% static 'js/superfish.min.js' %}"></script>
+    <script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/mail-script.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/cart.js' %}"></script>
+  </body>
+</html>

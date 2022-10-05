@@ -1,0 +1,134 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+
+    <link
+      href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/userprofile.css' %}" />
+  </head>
+  <body>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+    <div class="container bootstrap snippets bootdey">
+      <div class="row">
+        <div class="profile-nav col-md-3">
+          <div class="panel">
+            <div class="user-heading round">
+              <a href="#">
+                <img
+                src="{% static '/img/avatar.webp' %}"
+                  alt=""
+                />
+              </a>
+              <h1>{{user.full_name}}</h1>
+              <h4>{{user.email}}</h4>
+            </div>
+
+            <ul class="nav nav-pills nav-stacked">
+              <li class="active">
+                <a href="/"> <i class="fa fa-user"></i> Home</a>
+              </li>
+             
+                {% if user.is_author%}
+                <li>
+                <a href="#">
+                  <i class="fa fa-calendar"></i> My events
+                  <span class="label label-primary pull-right r-activity"
+                    >{{event_count}}</span
+                  ></a
+                >
+                </li>
+                <li>
+                  <a href="/mytickets">
+                    <i class="fa fa-calendar"></i> My Tickets
+                    <span class="label label-primary pull-right r-activity"
+                      >{{ticket_count}}</span
+                    ></a
+                  >
+                  </li>
+                {% else%}
+                <li>
+                <a href="/mytickets">
+                  <i class="fa fa-calendar"></i> My Tickets
+                  <span class="label label-primary pull-right r-activity"
+                    >{{ticket_count}}</span
+                  ></a
+                >
+                </li>
+                  {% endif %}
+              <li>
+                <a href="/user/editprofile"> <i class="fa fa-edit"></i> Edit profile</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="profile-info col-md-9">
+          <div class="panel">
+            <footer class="panel-footer">
+              <a href="/events/create" class="btn btn-primary pull-right">Post Event</a>
+              <ul class="nav nav-pills">
+                <li>
+                  <a href="#"><i class="fa fa-map-marker"></i></a>
+                </li>
+                <li>
+                  <a href="#"><i class="fa fa-camera"></i></a>
+                </li>
+                <li>
+                  <a href="#"><i class="fa fa-film"></i></a>
+                </li>
+                <li>
+                  <a href="#"><i class="fa fa-microphone"></i></a>
+                </li>
+              </ul>
+            </footer>
+          </div>
+          <div class="panel">
+            <div class="bio-graph-heading">
+              <div style="background: black">
+                welcome to TICKETY user profile management
+              </div>
+            </div>
+            <div class="panel-body bio-graph-info">
+              <h1>Bio Graph</h1>
+              <div class="card mt-3">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                    <h4 class="mb-0">Fullname</h4>
+                    <span class="text-secondary">{{user.full_name}}</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                    <h4 class="mb-0">phone number</h4>
+                    <span class="text-secondary">{{user.phone_no}}</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                    <h4 class="mb-0">My events</h4>
+                    <span class="text-secondary">{{event_count}} events</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                    <h4 class="mb-0">email</h4>
+                    <span class="text-secondary">{{user.email}}</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                    <h4 class="mb-0">my tickets</h4>
+                    <span class="text-secondary">{{ticket_count}} tickets  checkedout : {{checked_out}}</span>
+                  </li>
+                </ul>
+              </div> 
+            </div>
+            </div>
+          </div>
+          <div>
+            
+
+    <script type="text/javascript"></script>
+  </body>
+</html>

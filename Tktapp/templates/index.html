@@ -1,0 +1,286 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx" class="no-js' %}">
+  <head>
+    <!-- Mobile Specific Meta -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="{% static 'img/fav.png" />
+    <!-- Author Meta -->
+    <meta name="author" content="colorlib" />
+    <!-- Meta Description -->
+    <meta name="description" content="" />
+    <!-- Meta Keyword -->
+    <meta name="keywords" content="" />
+    <!-- meta character set -->
+    <meta charset="UTF-8" />
+    <!-- Site Title -->
+    <title>TICKETY</title>
+
+
+    <!--
+			CSS
+			============================================= -->
+    <link rel="stylesheet" href="{% static 'css/linearicons.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/nice-select.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/animate.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <link
+    href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700"
+    rel="stylesheet"
+  />
+  </head>
+  <body>
+    <header id="header">
+      <div class="container main-menu">
+        <div class="row align-items-center justify-content-between d-flex">
+          <div id="logo">
+            <a href="index.html">TICKETY</a>
+          </div>
+          <nav id="nav-menu-container">
+            <ul class="nav-menu">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="/events">Events</a></li>
+              <li><a href="/mytickets">My Tickets</a></li>
+              {% if request.user.is_authenticated %}
+              <li><a href="/logout">(logout)</a></li>
+              {% else %}
+              <li><a href="/login&register">login/sign up</a></li>
+              {% endif %}
+              <li class="menu-has-children">
+                <a href="#">Create Events</a>
+                <ul>
+                  <li><a href="/events/create">CREATE EVENT</a></li>
+                  <li><a href="blog-home.html">TUTORIAL</a></li>
+                  
+                </ul>
+              </li>
+              <li><a href="user/profile">{{request.user}}</a></li>
+            </ul>
+          </nav>
+          <!-- #nav-menu-container -->
+        </div>
+      </div>
+    </header>
+    <!-- #header -->
+
+    <!-- start banner Area -->
+    <section class="banner-area relative">
+      <div class="overlay overlay-bg"></div>
+      <div class="container">
+        <div class="row fullscreen align-items-center justify-content-between">
+          <div class="col-lg-6 col-md-6 banner-left">
+            <h6 class="text-white">Welcome to TICKETY</h6>
+            <h1 class="text-white">Get you event tickets now!!</h1>
+            <p class="text-white">
+              If you are looking for tickets to your favorite show or event and
+              even concerts we will help you to get the a affordavle prices
+            </p>
+            {% if request.user.is_authenticated %}
+            <div class="row"><a href="/events" class="primary-btn text-uppercase" style="margin-right: 10px;">Buy TICKETS</a><a href="/events/create" class="primary-btn text-uppercase">Create Event</a></div>
+            {% else %}
+            <a href="/login&register" class="primary-btn text-uppercase">Get Started</a>
+            {% endif %}
+          </div>
+          <div class="col-lg-4 col-md-6 banner-right">
+            <div class="booking-form">
+              <form method="GET">
+                <div class="form-group" class="row">
+                  <u><h3>Quick search</h3></u>
+                  <label for="">{{myFilter.form.title.label}}</label>
+                  {{myFilter.form.title}}
+                  <label for="">{{myFilter.form.start_date.label}}</label>
+                  {{myFilter.form.start_date}}
+                  <label for="">{{myFilter.form.end_date.label}}</label>
+                  {{myFilter.form.end_date}}                  
+                  <label for="">{{myFilter.form.location.label}}</label>
+                  {{myFilter.form.location}}
+                  <label for="">{{myFilter.form.about.label}}</label>
+                  {{myFilter.form.about}}
+                </div>
+                <div class="form-btn">
+                  <button class="submit-btn" type="">Check availability</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <style></style>
+    </section>
+    <!-- End banner Area -->
+
+    <!-- Start popular-destination Area -->
+    <section class="popular-destination-area section-gap">
+      <div>
+        <div class="row d-flex justify-content-center">
+          <div class="menu-content pb-30 col-lg-8">
+            <div class="title text-center">
+              <h1 class="mb-10">Events !!</h1>
+              <p>Events highest on demand get tickes now get them below.</p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          {% for event in events %} {% if event.thumbnail %}
+          <div
+            class="col-lg-4 cardb draw"
+            id="{{event.id}}"
+            style="background-image:url({{event.thumbnail.url}}) "
+          >
+          
+            {% else%}
+            <div
+            class="col-lg-4 cardb"
+            id="{{event.id}}"
+            style="background-image:url('/static/img/eventdefault.jpg') "
+          >
+            {% endif %}
+            <div class="single-destination relative">
+              <div class="thumb relative">
+                <div class="overlay overlay-bg"></div>
+              </div>
+
+              <div class="desc">
+                <a href="/events/{{event.id}}" class="price-btn">Go to event</a>
+                <h4>{{event.title}}</h4>
+                <p>{{event.location}}</p>
+              </div>
+            </div>
+          </div>
+      
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+    <!-- End popular-destination Area -->
+
+    <!-- start footer Area -->
+    <footer class="footer-area section-gap">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="single-footer-widget">
+              <h6>About TICKETY</h6>
+              <p>
+                Tickety provides a fast, simple, easy and secure way to buy tickets
+                and POST event our dashboard provides you with realtime view of your tickets
+                and event creation tools.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="single-footer-widget">
+              <h6>Navigation Links</h6>
+              <div class="row">
+                <div class="col">
+                  <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="/events">Events</a></li>
+                    <li><a href="/mytickets">My Tickets</a></li>
+                    {% if request.user.is_authenticated %}
+                    <li><a href="/logout">(logout)</a></li>
+                    {% else %}
+                    <li><a href="/login&register">login/sign up</a></li>
+                    {% endif %}
+                  </ul>
+                </div>
+                <div class="col">
+                  <ul>
+                    <li><a href="#">Team</a></li>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="user/profile">{{request.user}}</a></li>
+                    <li><a href="#">Contact</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="single-footer-widget">
+              <h6>Newsletter</h6>
+              <p>
+               Get alerted when new events come out 
+              </p>
+              <div id="mc_embed_signup">
+                <form
+                  target="_blank"
+                  action=""
+                  method="get"
+                  class="subscription relative"
+                >
+                  <div class="input-group d-flex flex-row">
+                    <input
+                      name="EMAIL"
+                      placeholder="Email Address"
+                      onfocus="this.placeholder = ''"
+                      onblur="this.placeholder = 'Email Address '"
+                      required=""
+                      type="email"
+                    />
+                    <button class="btn bb-btn">
+                      <span class="lnr lnr-location"></span>
+                    </button>
+                  </div>
+                  <div class="mt-10 info"></div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="row footer-bottom d-flex justify-content-between align-items-center"
+        >
+          <div class="col-lg-4 col-sm-12 footer-social">
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-dribbble"></i></a>
+            <a href="#"><i class="fa fa-behance"></i></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- End footer Area -->
+    <script>
+      // async function funcName(){
+      //     async function dd(id){
+      //     var v = `http://127.0.0.1:8000/api/${id}/?format=json`
+      //     const response = await fetch(v);
+      //     var data = await response.json();
+      //     return data.thumbnail}
+      //   $('.cardb').each(async function () {
+      //   dat = await dd(this.id)
+      //   var id =`#${this.id}`
+      //   $(id).css("background-image", `url(${dat})`);
+      //   console.log(dat)
+
+      // })
+
+      //     }
+
+      // funcName()
+    </script>
+    <script src="{% static 'js/vendor/jquery-2.2.4.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/vendor/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.js' %}"></script>
+    <script src="{% static 'js/easing.min.js' %}"></script>
+    <script src="{% static 'js/hoverIntent.js' %}"></script>
+    <script src="{% static 'js/superfish.min.js' %}"></script>
+    <script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/mail-script.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+  </body>
+</html>
