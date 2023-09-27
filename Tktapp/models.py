@@ -62,14 +62,13 @@ class Event(models.Model):
     uid = models.UUIDField(default=uuid.uuid4, editable=False,unique=True)
     user = models.ForeignKey(user, null=True, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
-    thumbnail = models.ImageField(blank=True, upload_to='images/')
+    thumbnail = models.ImageField(null=True,blank=True, upload_to='images/')
     about = models.TextField()
     location = models.CharField(max_length=100)
-    pin_location = models.CharField(max_length=255, blank=True)
     ticket_size = models.IntegerField()
     tickets_left = models.IntegerField(null=True,blank=True)
     start_date = models.DateField(auto_now_add=False, null=True)
-    start_time = models.TimeField(null=True,blank=True)
+    start_time = models.TimeField(null=True,blank=True,)
     end_time = models.TimeField(null=True,blank=True)
     end_date = models.DateField(null=True, blank=True)
     has_categories = models.BooleanField(default=False)
@@ -77,7 +76,7 @@ class Event(models.Model):
     
     def has_categories(self):
         if self.has_categories is False:
-            return self.price
+            return self.value
         else:
             return self.has_categories
     

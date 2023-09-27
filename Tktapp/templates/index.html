@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="zxx" class="no-js' %}">
+<html lang="en">
   <head>
     <!-- Mobile Specific Meta -->
     <meta
@@ -8,7 +8,6 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <!-- Favicon-->
-    <link rel="shortcut icon" href="{% static 'img/fav.png" />
     <!-- Author Meta -->
     <meta name="author" content="colorlib" />
     <!-- Meta Description -->
@@ -63,7 +62,7 @@
                   
                 </ul>
               </li>
-              <li><a href="user/profile">{{request.user}}</a></li>
+              <li><a href="/user/profile">{{request.user}}</a></li>
             </ul>
           </nav>
           <!-- #nav-menu-container -->
@@ -129,40 +128,31 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          {% for event in events %} {% if event.thumbnail %}
-          <div
-            class="col-lg-4 cardb draw"
-            id="{{event.id}}"
-            style="background-image:url({{event.thumbnail.url}}) "
-          >
-          
-            {% else%}
-            <div
-            class="col-lg-4 cardb"
-            id="{{event.id}}"
-            style="background-image:url('/static/img/eventdefault.jpg') "
-          >
-            {% endif %}
-            <div class="single-destination relative">
-              <div class="thumb relative">
-                <div class="overlay overlay-bg"></div>
-              </div>
 
-              <div class="desc">
-                <a href="/events/{{event.id}}" class="price-btn">Go to event</a>
-                <h4>{{event.title}}</h4>
-                <p>{{event.location}}</p>
-              </div>
-            </div>
-          </div>
-      
-          {% endfor %}
-        </div>
+  <main class="page-content">
+    {% for event in events %} {% if event.thumbnail %}
+    <div class="card " id="{{event.id}}"
+    style="background-image:url('{{event.thumbnail.url}}')"
+  >{% else%}
+  <div class="card " id="{{event.id}}"
+  style="background-image:url('/static/img/eventdefault.jpg') "
+>
+{% endif %}
+      <div class="content">
+        <h2 class="title">{{event.title}}</h2>
+        <p class="copy">{{event.location}}</p>
+        <a href="/events/detail/{{event.uid}}" class="price-btn btn ">GO to event</a>
       </div>
+    </div>
+    {% endfor %}
+  </main>
+ </div>
+
     </section>
     <!-- End popular-destination Area -->
+<section>
 
+</section>
     <!-- start footer Area -->
     <footer class="footer-area section-gap">
       <div class="container">
