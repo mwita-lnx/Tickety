@@ -1,115 +1,191 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>create event</title>
 
-    <link rel="stylesheet" href="{% static 'css/linearicons.css' %}">
-    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
-    <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">				
-    <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">							
-    <link rel="stylesheet" href="{% static 'css/animate.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">				
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
-    <script src="https://cdn.rawgit.com/bootstrap-wysiwyg/bootstrap3-wysiwyg/master/dist/bootstrap3-wysihtml5.all.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.rawgit.com/bootstrap-wysiwyg/bootstrap3-wysiwyg/master/src/bootstrap3-wysihtml5.css">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>create event</title>
+
+  <link rel="stylesheet" href="{% static 'css/linearicons.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/nice-select.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/animate.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/eventcreate.css' %}" />
+  <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet" />
 </head>
-<body>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <form method="post" role="form">
-          <div class="form-group">
-            <input type="text" class="form-control" name="title" placeholder="Title"/>
-          </div>
-          <div class="form-group">
-            <label> Image </label>
-            <div class="input-group">
-              
-              <span class="input-group-btn">
-                <span class="btn btn-primary btn-file">
-                  Browse <input type="file" name="bimgs" multiple>
-                </span>
-               </span>
-              <input type="text" class="form-control" readonly>
-             </div>
-          </div>
-          <div class="form-group">
-            <textarea class="form-control bcontent" name="content"></textarea>
-          </div>
-          <div class="form-group">
-             <input type="submit" name="Submit" value="Publish" class="btn btn-primary form-control" />
-          </div>
-        </form>
+
+<body class="banner-area">
+  <header id="header">
+    <div class="container main-menu">
+      <div class="row align-items-center justify-content-between d-flex">
+        <div id="logo">
+          <a href="index.html">TICKETY</a>
+        </div>
+        <nav id="nav-menu-container">
+          <ul class="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="/events">Events</a></li>
+            <li><a href="/mytickets">My Tickets</a></li>
+            {% if request.user.is_authenticated %}
+            <li><a href="/logout">(logout)</a></li>
+            {% else %}
+            <li><a href="/login&register">login/sign up</a></li>
+            {% endif %}
+            <li class="menu-has-children">
+              <a href="#">Create Events</a>
+              <ul>
+                <li><a href="/events/create">CREATE EVENT</a></li>
+                <li><a href="blog-home.html">TUTORIAL</a></li>
+
+              </ul>
+            </li>
+            <li><a href="user/profile">{{request.user}}</a></li>
+          </ul>
+        </nav>
+        <!-- #nav-menu-container -->
       </div>
-    </div>
-  </div>
-          <style>.btn-file {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .btn-file input[type=file] {
-            position: absolute;
-            top: 0;
-            right: 0;
-            min-width: 100%;
-            min-height: 100%;
-            font-size: 100px;
-            text-align: right;
-            filter: alpha(opacity=0);
-            opacity: 0;
-            outline: none;
-            background: white;
-            cursor: inherit;
-            display: block;
-        }
-        
-        input[readonly] {
-          background-color: white !important;
-          cursor: text !important;
-        }
-        
-        /* this is only due to codepen display don't use this outside of codepen */
-        .container {
-          padding-top: 20px;
-        }</style>
-        <script>
-            $(function() {
-  $(".bcontent").wysihtml5({
-    toolbar: {
-      "image": false
-    }
-  });
-  
-  $(document).on('change', '.btn-file :file', function() {
-    var input = $(this);
-    var numFiles = input.get(0).files ? input.get(0).files.length : 1;
-    console.log(input.get(0).files);
-    var label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-    input.trigger('fileselect', [numFiles, label]);
-  });
-  
-  $('.btn-file :file').on('fileselect', function(event, numFiles, label){
-    var input = $(this).parents('.input-group').find(':text');
-    var log = numFiles > 1 ? numFiles + ' files selected' : label;
-    
-    if( input.length ) {
-      input.val(log);
-    } else {
-      if( log ){ alert(log); }
-    }
-    
-  });
-});
-        </script>
+    </div><br>
+  </header>
+  <br>
+  <section>
+    <div class="create-form">
+      <u>
+        <h3>Event create form</h3>
+      </u>
+      <form method="POST" id="upload">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-md-4">
+            <label for="id_title" class="form-label">Title:</label>
+            <input type="text" name="title" maxlength="100" required="" id="id_title" class="form-control" />
+          </div>
+
+
+          <div class="col-md-4">
+            <label for="id_location" class="form-label">Location:</label>
+            <input type="text" name="location" maxlength="100" required="" id="id_location" class="form-control" />
+          </div>
+
+
+          <div class="col-md-4">
+            <label for="id_thumbnail" class="form-label">Event Poster:</label>
+            <input type="file" name="thumbnail" accept="image/*" id="id_thumbnail" class="form-control" required />
+          </div>
+
+          <div class="col-md-4">
+            <label for="id_ticket_size" class="form-label">Maximum Number of Tickets:</label>
+            <input type="number" name="ticket_size" required id="id_ticket_size" class="form-control" />
+          </div>
+          <div class="col-md-4">
+            <label for="id_about" class="form-label">About:</label>
+            <textarea name="about" cols="40" rows="10" required="" id="id_about" class="form-control"
+              style="height: 100px;"></textarea>
+          </div>
+
+          <div class="col-md-4">
+            <label for="id_start_date" class="form-label">Start date:</label>
+            <input type="date" name="start_date" id="id_start_date" class="form-control" required />
+          </div>
+
+          <div class="col-md-4">
+            <label for="id_start_time" class="form-label">Start time:</label>
+            <input type="time" name="start_time" id="id_start_time" class="form-control" required />
+          </div>
+
+          <div class="col-md-4">
+            <label for="id_end_time" class="form-label">End time:</label>
+            <input type="time" name="end_time" id="id_end_time" class="form-control" required />
+          </div>
+
+          <div class="col-md-4">
+            <label for="id_end_date" class="form-label">End date:</label>
+            <input type="date" name="end_date" id="id_end_date" class="form-control" required />
+          </div>
+
+          <div class="row col-md-12 categories-container" style="margin: 5px;
+      ">
+            <div class="form-group col-md-3 ">
+              <label for="" class="form-label">Add a Ticket price</label><br>
+              <button type="button" class="btn btn-primary" id="addCategory">Add Category</button>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label for="id_submit" class="form-label">click to Submit:</label><br>
+            <button type="" class="submit-btn" id="id_submit">Create Event</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="categoryModalLabel">Add Category and Price</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="categoryName">Category Name:</label>
+                <input type="text" class="form-control" id="categoryName">
+              </div>
+              <div class="form-group">
+                <label for="categoryPrice">Category Price:</label>
+                <input type="number" class="form-control" id="categoryPrice">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="saveCategory">Save</button>
+            </div>
+          </div>
         </div>
       </div>
-      <script src="{% static 'js/jquery-ui.js' %}"></script>
+      <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                  <div id="successBadge" class="alert alert-success" role="alert">
+                    <h4 class="alert-heading">Success!</h4>
+                    <p>Your Event creaion was successful.</p>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+ 
+    
+    
+  </section>
+  <script src="{% static 'js/vendor/jquery-2.2.4.min.js' %}"></script>
+  <script src="{% static 'js/popper.min.js' %}"></script>
+  <script src="{% static 'js/vendor/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/jquery-ui.js' %}"></script>
+  <script src="{% static 'js/easing.min.js' %}"></script>
+  <script src="{% static 'js/hoverIntent.js' %}"></script>
+  <script src="{% static 'js/superfish.min.js' %}"></script>
+  <script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
+  <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+  <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+  <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'js/eventcreate.js' %}"></script>
+
+
+  <script>
+   
+
+  </script>
 </body>
+
 </html>

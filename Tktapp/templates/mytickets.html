@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,9 +7,10 @@
     <!--  All snippets are MIT license http://bootdey.com/license -->
     <title>tickets for events - Bootdey.com</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-	<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/vendor/jquery-2.2.4.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+
+    <script src="{% static 'js/vendor/bootstrap.min.js' %}"></script>
 </head>
 <body>
 <section class="container">
